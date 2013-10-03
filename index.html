@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Mind Point</title>
+	<link rel="stylesheet" href="css/semantic.min.css"></head>
+	<style type="text/css">
+	body{
+		font-family: "Open Sans", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+		margin: 0px;
+		padding: 0px;
+		color: #444;
+		min-width: 320px;
+		background-color: #fbfbfb;
+	}
+	.container{
+		width: 960px;
+		margin: 40px auto;
+	}
+	</style>
+<body>
+
+	<div class="container">
+		<h1 class="ui large header blue">Algoritma Midpoint</h1>
+		<div class="ui divider"></div>
+		<div class="ui two column grid">
+			<div class="row">
+				<div class="column">
+					<div id="canvas"></div>
+				</div>
+
+				<div class="column">
+					<form action="" class="mp-form ui form">
+						<p>
+							<label for="xPoint">X:</label>
+							<input type="text" name="xPoint" id="xPoint">
+						</p>
+						<p>
+							<label for="yPoint">Y:</label>
+							<input type="text" name="yPoint" id="yPoint">
+						</p>
+						<p>
+							<label for="radius">Radius:</label>
+							<input type="text" name="radius" id="radius">
+						</p>
+						<input type="submit" value="Go!" class="ui button teal">
+					</form>
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+	<script src="javascript/jquery.js"></script>
+	<script src="javascript/_.js"></script>
+	<script src="javascript/svg.js"></script>
+	<script src="javascript/midpoint.js"></script>
+	<script src="javascript/semantic.min.js"></script>
+	<script>
+	$(document).ready(function(){
+
+		var draw = SVG('canvas').size('100%', '500px'),
+			pLine = draw.polyline([[1,1]]).fill('#b8d3d8').stroke({ width: 1, color: '#b8d3d8' });
+
+		$('.mp-form').on('submit', function (evt) {
+			evt.preventDefault();
+
+			var xCenter = $('#xPoint').val(),
+				yCenter = $('#yPoint').val(),
+				radius = $('#radius').val(),
+				mp;
+
+			mp = midpoint.draw(Number(xCenter), Number(yCenter), Number(radius));
+			pLine.animate(300).plot(mp);
+		});
+
+	});
+</script>
+</body>
+</html>
